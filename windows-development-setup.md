@@ -315,12 +315,6 @@
    - [Microsoft PowerToys](https://github.com/microsoft/PowerToys)
    - Windows用生産性ツール
 
-3. **zsh + Oh My Zsh（オプション）**
-   ```bash
-   sudo apt install zsh
-   sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-   ```
-
 ### ブラウザとデバッグツール
 
 1. **Google Chrome**
