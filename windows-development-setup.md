@@ -372,6 +372,17 @@
 2. **Git History**
    - Git履歴の視覚化
 
+### Docker関連
+
+1. **Docker**
+   - Microsoft製 - Dockerコンテナの管理と開発
+   - Dockerfileのシンタックスハイライト
+   - Docker Composeサポート
+
+2. **Dev Containers**
+   - Microsoft製 - コンテナ内での開発環境
+   - 一貫した開発環境の提供
+
 ### 生産性向上
 
 1. **Bracket Pair Colorizer 2**
@@ -413,7 +424,12 @@
 
 2. **コマンドラインでのインストール**
    ```bash
+   # 必須拡張機能
    code --install-extension ms-vscode-remote.remote-wsl
+   code --install-extension ms-vscode-remote.remote-containers
+   code --install-extension ms-azuretools.vscode-docker
+   
+   # 言語サポート
    code --install-extension ms-python.python
    code --install-extension esbenp.prettier-vscode
    ```
@@ -464,6 +480,36 @@ source ~/.bashrc
    ```bash
    sudo apt update && sudo apt upgrade
    ```
+
+### Docker関連
+
+**問題**: Docker Desktopが起動しない
+**解決策**:
+1. Hyper-Vが有効になっているか確認
+2. BIOSで仮想化技術が有効になっているか確認
+3. Windows機能でWSLとVirtual Machine Platformが有効か確認
+4. WSL2が正常に動作しているか確認
+
+**問題**: WSL2統合でDockerコマンドが見つからない
+**解決策**:
+1. Docker Desktop設定でWSL Integration が有効か確認
+2. WSLディストリビューション（Ubuntu）が統合対象に含まれているか確認
+3. Docker Desktopを再起動
+4. WSLターミナルを再起動
+
+**問題**: Dockerコンテナの動作が遅い
+**解決策**:
+1. `.wslconfig`でメモリとCPU設定を最適化
+2. Docker Desktop設定でリソース配分を調整
+3. 不要なコンテナとイメージをクリーンアップ:
+   ```bash
+   docker system prune -a
+   ```
+
+**問題**: WSL2でのファイル権限エラー
+**解決策**:
+1. プロジェクトファイルをWSL2のLinuxファイルシステム（/home/username/）に配置
+2. Windowsファイルシステム（/mnt/c/）ではなく、WSL2内で作業
 
 ### VSCode関連
 
