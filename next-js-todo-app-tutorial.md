@@ -2265,102 +2265,7 @@ touch public/_headers
   Permissions-Policy: geolocation=(), camera=(), microphone=()
 ```
 
-### 7.7 カスタムドメインの設定
-
-#### ドメインの追加
-
-1. **Cloudflare Dashboard** → **Pages** → **プロジェクト選択**
-2. **Custom domains** → **Set up a custom domain**
-3. **ドメイン名を入力**: `todo.example.com`
-4. **DNS設定を確認・更新**
-
-#### DNS設定
-
-Cloudflareを使用する場合：
-```
-Type: CNAME
-Name: todo
-Content: my-todo-app.pages.dev
-Proxy status: Proxied (orange cloud)
-```
-
-他のDNSプロバイダーを使用する場合：
-```
-Type: CNAME
-Name: todo
-Value: my-todo-app.pages.dev
-```
-
-### 7.8 監視とログ
-
-#### Real User Monitoring (RUM)
-
-Cloudflareのアナリティクスを活用：
-
-1. **Analytics** → **Web Analytics**
-2. **JavaScript Beacon**を有効化
-3. **追跡コードをHTMLに追加**（Next.jsのレイアウトファイル）
-
-`src/app/layout.tsx`に追加:
-```typescript
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="ja" suppressHydrationWarning>
-      <head>
-        {/* Cloudflare Web Analytics */}
-        <script 
-          defer 
-          src='https://static.cloudflareinsights.com/beacon.min.js' 
-          data-cf-beacon='{"token": "your-token-here"}'
-        />
-      </head>
-      <body className={inter.className}>
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
-  );
-}
-```
-
-#### エラー監視
-
-コンソールエラーの監視を追加：
-
-```typescript
-// src/utils/errorTracking.ts
-export class ErrorTracker {
-  static track(error: Error, context?: string) {
-    console.error('Application Error:', {
-      message: error.message,
-      stack: error.stack,
-      context,
-      timestamp: new Date().toISOString(),
-      userAgent: navigator.userAgent,
-      url: window.location.href,
-    });
-
-    // 本番環境では外部サービスに送信
-    if (process.env.NODE_ENV === 'production') {
-      // Sentry、LogRocket、Cloudflare等への送信
-    }
-  }
-}
-
-// React Error Boundary
-export class ErrorBoundary extends React.Component {
-  componentDidCatch(error: Error, errorInfo: any) {
-    ErrorTracker.track(error, 'React Error Boundary');
-  }
-}
-```
-
-### 7.9 セキュリティ設定
+### 7.7 セキュリティ設定
 
 #### セキュリティヘッダーの追加
 
@@ -2401,7 +2306,7 @@ wrangler pages secret put API_KEY
 # Pages → プロジェクト → Settings → Environment variables
 ```
 
-### 7.10 本番運用のベストプラクティス
+### 7.8 本番運用のベストプラクティス
 
 #### デプロイフローの確立
 
